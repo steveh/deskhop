@@ -99,7 +99,15 @@ hotkey_combo_t hotkeys[] = {
      .keys           = {HID_KEY_B},
      .key_count      = 1,
      .acknowledge    = true,
-     .action_handler = &fw_upgrade_hotkey_handler_B}};
+     .action_handler = &fw_upgrade_hotkey_handler_B},
+
+    /* Hold down left ctrl + right shift + W ==> swap the screen count between devices */
+    {.modifier       = KEYBOARD_MODIFIER_LEFTCTRL | KEYBOARD_MODIFIER_RIGHTSHIFT,
+     .keys           = {HID_KEY_W},
+     .key_count      = 1,
+     .pass_to_os     = false,
+     .acknowledge    = true,
+     .action_handler = &swap_screen_count_hotkey_handler}};
 
 /* ============================================================ *
  * Detect if any hotkeys were pressed

@@ -143,6 +143,25 @@ void config_enable_hotkey_handler(device_t *state, hid_keyboard_report_t *report
     state->reboot_requested = true;
 };
 
+/* This key combo swaps the screen count between outputs */
+void swap_screen_count_hotkey_handler(device_t *state, hid_keyboard_report_t *report) {
+    /* We need to ensure that we are not in config mode */
+    if (state->config_mode_active) {
+        return;
+    }
+
+    uint32_t temp_screen_count = state->config.output[OUTPUT_A].screen_count;
+    state->config.output[OUTPUT_A].screen_count = state->config.output[OUTPUT_B].screen_count;
+    state->config.output[OUTPUT_B].screen_count = temp_screen_count;
+
+    // Reset screen_index to a valid default (e.g., 1 for the primary screen)
+    // to prevent out-of-bounds issues after swapping screen_count.
+    state->config.output[OUTPUT_A].screen_index = 1;
+    state->config.output[OUTPUT_B].screen_index = 1;
+
+    save_config(state); // Save the changes to persistent storage
+}
+
 
 /* ==================================================== *
  * ==========  UART Message Handling Routines  ======== *

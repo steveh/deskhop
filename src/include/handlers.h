@@ -31,6 +31,7 @@ void screenlock_hotkey_handler(device_t *, hid_keyboard_report_t *);
 void switchlock_hotkey_handler(device_t *, hid_keyboard_report_t *);
 void toggle_gaming_mode_handler(device_t *, hid_keyboard_report_t *);
 void wipe_config_hotkey_handler(device_t *, hid_keyboard_report_t *);
+void swap_screen_count_hotkey_handler(device_t *, hid_keyboard_report_t *);
 
 /*==============================================================================
  *  UART Message Handlers
