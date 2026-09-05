@@ -251,12 +251,10 @@ void tuh_hid_report_received_cb(uint8_t dev_addr, uint8_t instance, uint8_t cons
         if (iface->uses_report_id)
             report_id = report[0];
 
-        if (report_id < MAX_REPORTS) {
-            process_report_f receiver = iface->report_handler[report_id];
+        process_report_f receiver = get_report_handler(iface, report_id);
 
-            if (receiver != NULL)
-                receiver((uint8_t *)report, len, device_idx, iface);
-        }
+        if (receiver != NULL)
+            receiver((uint8_t *)report, len, device_idx, iface);
     }
     else if (itf_protocol == HID_ITF_PROTOCOL_KEYBOARD) {
         process_keyboard_report((uint8_t *)report, len, device_idx, iface);
